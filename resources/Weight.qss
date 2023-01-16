@@ -1,0 +1,6 @@
+*{
+	font-family:Microsoft YaHei;
+}
+#MainWindow{
+	background-image:url("resources/background.png");
+}

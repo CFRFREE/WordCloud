@@ -1,8 +1,10 @@
+# coding=utf-8
 from PySide2.QtGui import QIcon
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtWidgets import QApplication, QFileDialog, QMessageBox, QHeaderView
 from generate import work_text
 from PIL import Image
+import sys
 
 
 # 首页
@@ -11,6 +13,8 @@ class Main:
 		self.Text = None
 		self.Weight = None
 		self.ui = QUiLoader().load('resources/Main.ui')
+		with open('resources/Main.qss', 'r') as f:
+			self.ui.setStyleSheet(f.read())
 		# 绑定首页的两个按钮
 		self.ui.ButtonText.clicked.connect(self.TurnToText)
 		self.ui.ButtonWeight.clicked.connect(self.TurnToWeight)
@@ -40,6 +44,8 @@ class Text:
 	def __init__(self):
 		self.Main = None
 		self.ui = QUiLoader().load('resources/Text.ui')
+		with open('resources/Text.qss', 'r') as f:
+			self.ui.setStyleSheet(f.read())
 		# 绑定文本模式的三个按钮：处理、选择文件和返回
 		self.ui.ButtonBegin.clicked.connect(self.work)
 		self.ui.ButtonChoose.clicked.connect(self.findfile)
@@ -100,6 +106,8 @@ class Weight:
 	def __init__(self):
 		self.Main = None
 		self.ui = QUiLoader().load('resources/Weight.ui')
+		with open('resources/Weight.qss', 'r') as f:
+			self.ui.setStyleSheet(f.read())
 		# 绑定按钮
 		self.ui.ButtonBegin.clicked.connect(self.work)
 		self.ui.ButtonBack.clicked.connect(self.back)
@@ -163,7 +171,7 @@ class Weight:
 
 
 # 主函数
-app = QApplication([])
+app = QApplication(sys.argv)
 app.setWindowIcon(QIcon('resources/logo.jpg'))
 free = Main()
 free.ui.show()
