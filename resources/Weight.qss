@@ -1,6 +1,21 @@
 *{
-	font-family:Microsoft YaHei;
+	font-size: 18px;
+	font-family: Microsoft YaHei;
 }
 #MainWindow{
-	background-image:url("resources/background.png");
+	background-image: url("resources/background.png");
+}
+QGroupBox{
+    border: 1px solid gray;
+	font: bold;
+	margin-top: 2ex;
+}
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    left: 10px;
+    margin-left: 0px;
+}
+QGroupBox#groupBox{
+	padding-top: 2ex;
 }

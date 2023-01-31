@@ -2,9 +2,9 @@
 from PySide2.QtGui import QIcon
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtWidgets import QApplication, QFileDialog, QMessageBox, QHeaderView
-from generate import work_text
 from PIL import Image
 import sys
+from process import work_text
 
 
 # 首页
@@ -16,6 +16,8 @@ class Main:
 		with open('resources/Main.qss', 'r') as f:
 			self.ui.setStyleSheet(f.read())
 		# 绑定首页的两个按钮
+		self.ui.ButtonText.setToolTip("对文字智能生成词云")
+		self.ui.ButtonWeight.setToolTip("自定义每个词及其权重以生成词云")
 		self.ui.ButtonText.clicked.connect(self.TurnToText)
 		self.ui.ButtonWeight.clicked.connect(self.TurnToWeight)
 

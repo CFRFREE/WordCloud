@@ -1,4 +1,4 @@
-*{
+QPushButton{
 	font-family:Microsoft YaHei;
 	font-size:30px;
 	color: #1d649c;
