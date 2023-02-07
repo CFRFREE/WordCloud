@@ -281,7 +281,7 @@
      </widget>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="2,1,0,0,2">
+     <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="2,1,0,1,2">
       <item>
        <spacer name="horizontalSpacer">
         <property name="orientation">
