@@ -1,3 +1,4 @@
+# @formatter:on
 # coding=utf-8
 from PySide2.QtGui import QIcon
 from PySide2.QtUiTools import QUiLoader
