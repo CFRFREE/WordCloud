@@ -23,7 +23,7 @@ QGroupBox#groupBox
 {
 	padding-top: 2ex;
 }
-QPushButton
+QPushButton#ButtonNew
 {
     font-weight:bold;
 	color:rgb(065,076,135);
@@ -31,11 +31,43 @@ QPushButton
 	border-radius:2px;
 	border:1px solid rgb(175,090,118);
 }
-QPushButton:hover
+QPushButton#ButtonNew:hover
 {
     background-color:rgb(255,255,255);
 }
-QPushButton:pressed
+QPushButton#ButtonNew:pressed
+{
+    background-color:rgb(14,135,228);
+}
+QPushButton#ButtonBegin
+{
+    font-weight:bold;
+	color:rgb(065,076,135);
+	background-color:rgb(236,237,235);
+	border-radius:2px;
+	border:1px solid rgb(175,090,118);
+}
+QPushButton#ButtonBegin:hover
+{
+    background-color:rgb(255,255,255);
+}
+QPushButton#ButtonBegin:pressed
+{
+    background-color:rgb(14,135,228);
+}
+QPushButton#ButtonEnd
+{
+    font-weight:bold;
+	color:rgb(065,076,135);
+	background-color:rgb(236,237,235);
+	border-radius:2px;
+	border:1px solid rgb(175,090,118);
+}
+QPushButton#ButtonEnd:hover
+{
+    background-color:rgb(255,255,255);
+}
+QPushButton#ButtonEnd:pressed
 {
     background-color:rgb(14,135,228);
 }
