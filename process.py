@@ -140,3 +140,22 @@ def work_text(st, L, W):
 	except:
 		# 如果生成失败就返回错误信息
 		return [0, format_exc()]
+
+
+def work_text_advanced(st):
+	try:
+		# 切割词语
+		wordlist = cut(st)
+		# 使用空格链接词语
+		space_list = ' '.join(wordlist)
+		# print(space_list)
+		# 生成云图
+		wordcloud = WordCloud(font_path='msyh.ttc', width=L, height=W, background_color="white", margin=1,
+		                      max_words=300, min_font_size=20, max_font_size=None, repeat=True, mode='RGBA',
+		                      colormap='tab10').generate(space_list)
+		FileName = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
+		wordcloud.to_file('output/' + FileName + '.png')
+		return [1, FileName]
+	except:
+		# 如果生成失败就返回错误信息
+		return [0, format_exc()]

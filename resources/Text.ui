@@ -95,7 +95,7 @@
        <string notr="true"/>
       </property>
       <property name="title">
-       <string>词云图大小设置</string>
+       <string>词云图设置</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -106,9 +106,9 @@
       <property name="checkable">
        <bool>false</bool>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="2,1">
+      <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="2">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,1,1,1,1">
+        <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,1,1,1,1,1,0">
          <property name="sizeConstraint">
           <enum>QLayout::SetDefaultConstraint</enum>
          </property>
@@ -174,20 +174,27 @@
            </property>
           </widget>
          </item>
+         <item>
+          <spacer name="horizontalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="ButtonToAdvanced">
+           <property name="text">
+            <string>高级</string>
+           </property>
+          </widget>
+         </item>
         </layout>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer_3">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
        </item>
       </layout>
      </widget>
