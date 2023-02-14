@@ -55,7 +55,7 @@ QPushButton#ButtonBegin:pressed
 {
     background-color:rgb(14,135,228);
 }
-QPushButton#ButtonEnd
+QPushButton#ButtonBack
 {
     font-weight:bold;
 	color:rgb(065,076,135);
@@ -63,11 +63,11 @@ QPushButton#ButtonEnd
 	border-radius:2px;
 	border:1px solid rgb(175,090,118);
 }
-QPushButton#ButtonEnd:hover
+QPushButton#ButtonBack:hover
 {
     background-color:rgb(255,255,255);
 }
-QPushButton#ButtonEnd:pressed
+QPushButton#ButtonBack:pressed
 {
     background-color:rgb(14,135,228);
 }

@@ -100,16 +100,18 @@ class Text:
 		self.ui.ButtonBegin.setEnabled(False)
 		# 生成词云
 		message = work_text(self.st, self.length, self.width)
+		print(message)
+		print(type(message))
 		# 根据返回值弹出对应的提示
-		if message == "生成成功":
+		if message[0] == 1:
 			choice = QMessageBox.question(self.ui, '提示', '生成成功，词云图已保存在output文件夹下，是否查看？')
 			if choice == QMessageBox.Yes:
 				# 使用系统默认方式打开生成的词云图
-				img = Image.open("output/wordcloud.png")
+				img = Image.open('output/' + message[1] + '.png')
 				img.show()
 		else:
 			# 如果失败就弹出一个有错误提示的提醒框
-			QMessageBox.information(self.ui, '提示', "生成失败，错误信息为" + message)
+			QMessageBox.information(self.ui, '提示', "生成失败，错误信息为" + message[1])
 		# 恢复关闭的开始按钮
 		self.ui.ButtonBegin.setEnabled(True)
 
@@ -178,15 +180,15 @@ class Weight:
 		# 生成词云
 		message = work_text(self.st, self.length, self.width)
 		# 根据返回值弹出对应的提示
-		if message == "生成成功":
+		if message[0] == 1:
 			choice = QMessageBox.question(self.ui, '提示', '生成成功，词云图已保存在output文件夹下，是否查看？')
 			if choice == QMessageBox.Yes:
 				# 使用系统默认方式打开生成的词云图
-				img = Image.open("output/wordcloud.png")
+				img = Image.open('output/' + message[1] + '.png')
 				img.show()
 		else:
 			# 如果失败就弹出一个有错误提示的提醒框
-			QMessageBox.information(self.ui, '提示', "生成失败，错误信息为" + message)
+			QMessageBox.information(self.ui, '提示', "生成失败，错误信息为" + message[1])
 		# 恢复关闭的开始按钮
 		self.ui.ButtonBegin.setEnabled(True)
 
