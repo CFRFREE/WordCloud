@@ -2,7 +2,10 @@
 # coding=utf-8
 from PySide2.QtGui import QIcon
 from PySide2.QtUiTools import QUiLoader
-from PySide2.QtWidgets import QApplication, QFileDialog, QMessageBox, QHeaderView
+from PySide2.QtWidgets import QApplication
+from PySide2.QtWidgets import QFileDialog
+from PySide2.QtWidgets import QMessageBox
+from PySide2.QtWidgets import QHeaderView
 from PIL import Image
 import sys
 from process import work_text
@@ -16,6 +19,7 @@ class Main:
 		self.ui = QUiLoader().load('resources/Main.ui')
 		with open('resources/Main.qss', 'r') as f:
 			self.ui.setStyleSheet(f.read())
+		# 从resources/Main.ui文件里加载首页样式
 		# 绑定首页的两个按钮
 		self.ui.ButtonText.setToolTip("对文字智能生成词云")
 		self.ui.ButtonWeight.setToolTip("自定义每个词及其权重以生成词云")
@@ -26,12 +30,14 @@ class Main:
 	def TurnToText(self):
 		self.Text = Text()
 		self.Text.ui.show()
+		# 打开新页面后关闭主页
 		self.ui.close()
 
 	# 转到权重模式
 	def TurnToWeight(self):
 		self.Weight = Weight()
 		self.Weight.ui.show()
+		# 打开新页面后关闭主页
 		self.ui.close()
 
 
@@ -40,6 +46,7 @@ class Text:
 	# 两个要用的内部变量
 	file_name = ""
 	file_type = ""
+	# 生成词云图的文本信息和长款像素
 	st = ""
 	length = 0
 	width = 0
@@ -49,6 +56,7 @@ class Text:
 		self.ui = QUiLoader().load('resources/Text.ui')
 		with open('resources/Text.qss', 'r') as f:
 			self.ui.setStyleSheet(f.read())
+		# 从resources/Test.ui文件里加载首页样式
 		# 绑定文本模式的三个按钮：处理、选择文件和返回
 		self.ui.ButtonBegin.clicked.connect(self.work)
 		self.ui.ButtonChoose.clicked.connect(self.findfile)
@@ -58,12 +66,16 @@ class Text:
 	def back(self):
 		self.Main = Main()
 		self.Main.ui.show()
+		# 打开新页面后关闭主页
 		self.ui.close()
 
 	# 选择文件函数
 	def findfile(self):
-		self.file_name, self.file_type = QFileDialog.getOpenFileName(None, '选择文件', '', '文本文件(*.txt)')
+		self.file_name, self.file_type = \
+			QFileDialog.getOpenFileName(None, '选择文件', '', '文本文件(*.txt)')
+		# 从txt文件里导入词云文本信息
 		# print(file_type)
+		# 显示导入文件的信息以便确认
 		self.ui.labelFile.setText(self.file_name)
 
 	# 获取参数
@@ -77,7 +89,7 @@ class Text:
 			with open(self.file_name, 'r', encoding='utf-8') as f:  # 打开文件
 				self.st += f.read()  # 读取文件
 			f.close()
-		# 获取长宽
+		# 获取词云图长宽
 		self.length = self.ui.spinBoxL.value()
 		self.width = self.ui.spinBoxW.value()
 
@@ -92,15 +104,18 @@ class Text:
 		if message == "生成成功":
 			choice = QMessageBox.question(self.ui, '提示', '生成成功，词云图已保存在output文件夹下，是否查看？')
 			if choice == QMessageBox.Yes:
+				# 使用系统默认方式打开生成的词云图
 				img = Image.open("output/wordcloud.png")
 				img.show()
 		else:
+			# 如果失败就弹出一个有错误提示的提醒框
 			QMessageBox.information(self.ui, '提示', "生成失败，错误信息为" + message)
 		# 恢复关闭的开始按钮
 		self.ui.ButtonBegin.setEnabled(True)
 
 
 class Weight:
+	# 以下分别扫文本，词云图长款和{短语-权重}的组数
 	st = ""
 	length = 0
 	width = 0
@@ -111,6 +126,7 @@ class Weight:
 		self.ui = QUiLoader().load('resources/Weight.ui')
 		with open('resources/Weight.qss', 'r') as f:
 			self.ui.setStyleSheet(f.read())
+		# 从resources/Weight.ui文件导入样式
 		# 绑定按钮
 		self.ui.ButtonBegin.clicked.connect(self.work)
 		self.ui.ButtonBack.clicked.connect(self.back)
@@ -165,16 +181,19 @@ class Weight:
 		if message == "生成成功":
 			choice = QMessageBox.question(self.ui, '提示', '生成成功，词云图已保存在output文件夹下，是否查看？')
 			if choice == QMessageBox.Yes:
+				# 使用系统默认方式打开生成的词云图
 				img = Image.open("output/wordcloud.png")
 				img.show()
 		else:
+			# 如果失败就弹出一个有错误提示的提醒框
 			QMessageBox.information(self.ui, '提示', "生成失败，错误信息为" + message)
 		# 恢复关闭的开始按钮
 		self.ui.ButtonBegin.setEnabled(True)
 
 
-# 主函数
+# 以下是主函数
 app = QApplication(sys.argv)
+# 设置程序左上角显示的图标
 app.setWindowIcon(QIcon('resources/logo.jpg'))
 free = Main()
 free.ui.show()
