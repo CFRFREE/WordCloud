@@ -137,7 +137,8 @@ def work_text(st, L, W):
 			mylength = L
 		if W != 0:
 			mywidth = W
-		wordcloud = WordCloud(font_path='msyh.ttc', width=mylength, height=mywidth, background_color="white", margin=1,
+		wordcloud = WordCloud(font_path='simsun.ttc', width=mylength, height=mywidth, background_color="white",
+		                      margin=1,
 		                      max_words=300, min_font_size=20, max_font_size=None, repeat=True, mode='RGBA',
 		                      colormap='tab10').generate(space_list)
 		FileName = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
