@@ -75,7 +75,9 @@ class Text:
 		self.ui.close()
 
 	def ToAdvanced(self):
+		# 注意在前往高级界面之前进行文本的读取
 		self.Getcontent()
+		# FromWhere记录从哪个模式进入的高级界面，以便返回
 		global FromWhere
 		FromWhere = "Text"
 		self.Main = Advanced()
@@ -106,6 +108,7 @@ class Text:
 
 	# 获取词云图长宽
 	def Getargs(self):
+		# 默认都是400，如果用户进行了自定义就更改
 		if self.ui.spinBoxL.value() != 0:
 			self.length = self.ui.spinBoxL.value()
 		if self.ui.spinBoxW.value() != 0:
@@ -115,8 +118,9 @@ class Text:
 		# 先获取需要的参数
 		self.Getcontent()
 		self.Getargs()
-		# 防止意外先禁用掉开始按钮
+		# 防止意外先禁用掉开始和返回按钮
 		self.ui.ButtonBegin.setEnabled(False)
+		self.ui.ButtonBack.setEnabled(False)
 		# 生成词云
 		global content
 		message = process.work_text(content, self.length, self.width)
@@ -145,7 +149,9 @@ class Weight:
 		# 绑定按钮
 		self.length = 400
 		self.width = 400
+		# 记录当前有的{词汇——权重}组数
 		self.line = 0
+		# 进行四个按钮的绑定
 		self.ui.ButtonBegin.clicked.connect(self.Begin)
 		self.ui.ButtonBack.clicked.connect(self.Back)
 		self.ui.ButtonNew.clicked.connect(self.Newline)
@@ -171,6 +177,7 @@ class Weight:
 		self.ui.close()
 
 	def ToAdvanced(self):
+		self.Getcontent()
 		global FromWhere
 		FromWhere = "Weight"
 		self.Main = Advanced()
@@ -193,7 +200,9 @@ class Weight:
 			# print(tep2)
 			content += tep1 * (int(tep2) - int('0'))
 
+	# 获取词云图长宽
 	def Getargs(self):
+		# 默认都是400，如果用户进行了自定义就更改
 		if self.ui.spinBoxL.value() != 0:
 			self.length = self.ui.spinBoxL.value()
 		if self.ui.spinBoxW.value() != 0:
@@ -205,6 +214,7 @@ class Weight:
 		self.Getargs()
 		# 防止意外先禁用掉开始按钮
 		self.ui.ButtonBegin.setEnabled(False)
+		self.ui.ButtonBack.setEnabled(False)
 		# 生成词云
 		global content
 		message = process.work_text(content, self.length, self.width)
@@ -330,6 +340,7 @@ class Advanced:
 	def Begin(self):
 		# 防止意外先禁用掉开始按钮
 		self.ui.ButtonBegin.setEnabled(False)
+		self.ui.ButtonBack.setEnabled(False)
 		self.GetParameter()
 		# 所有参数的列表
 		ParameterList = [self.length, self.width, self.font, self.background, self.max, self.min, self.step,
