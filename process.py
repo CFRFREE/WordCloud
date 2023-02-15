@@ -149,7 +149,7 @@ def work_text(st, L, W):
 		return [0, format_exc()]
 
 
-def work_text_advanced(st, *args):
+def work_text_advanced(st, args):
 	try:
 		# 切割词语
 		wordlist = cut(st)

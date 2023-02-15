@@ -75,6 +75,7 @@ class Text:
 		self.ui.close()
 
 	def ToAdvanced(self):
+		self.Getcontent()
 		global FromWhere
 		FromWhere = "Text"
 		self.Main = Advanced()
@@ -102,13 +103,18 @@ class Text:
 			with open(self.file_name, 'r', encoding='utf-8') as f:  # 打开文件
 				content += f.read()  # 读取文件
 			f.close()
-		# 获取词云图长宽
-		self.length = self.ui.spinBoxL.value()
-		self.width = self.ui.spinBoxW.value()
+
+	# 获取词云图长宽
+	def Getargs(self):
+		if self.ui.spinBoxL.value() != 0:
+			self.length = self.ui.spinBoxL.value()
+		if self.ui.spinBoxW.value() != 0:
+			self.width = self.ui.spinBoxW.value()
 
 	def Begin(self):
 		# 先获取需要的参数
 		self.Getcontent()
+		self.Getargs()
 		# 防止意外先禁用掉开始按钮
 		self.ui.ButtonBegin.setEnabled(False)
 		# 生成词云
@@ -186,8 +192,8 @@ class Weight:
 			tep2 = self.ui.tableWidget.item(i, 1).text()
 			# print(tep2)
 			content += tep1 * (int(tep2) - int('0'))
-		# print(self.st)
-		# 获取长宽
+
+	def Getargs(self):
 		if self.ui.spinBoxL.value() != 0:
 			self.length = self.ui.spinBoxL.value()
 		if self.ui.spinBoxW.value() != 0:
@@ -196,6 +202,7 @@ class Weight:
 	def Begin(self):
 		# 先获取需要的参数
 		self.Getcontent()
+		self.Getargs()
 		# 防止意外先禁用掉开始按钮
 		self.ui.ButtonBegin.setEnabled(False)
 		# 生成词云
@@ -317,8 +324,8 @@ class Advanced:
 		if self.ui.spinBoxFreq.value() != 0:
 			self.freq = self.ui.spinBoxFreq.value()
 
-		if self.ui.spinBoxRele.value() != 0:
-			self.rele = self.ui.spinBoxRele.value()
+		if self.ui.SpinBoxRele.value() != 0:
+			self.rele = self.ui.SpinBoxRele.value()
 
 	def Begin(self):
 		# 防止意外先禁用掉开始按钮
