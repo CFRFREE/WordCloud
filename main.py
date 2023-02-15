@@ -19,6 +19,8 @@ FromWhere = ""
 # 首页
 class Main:
 	def __init__(self):
+		global content
+		content = ""
 		self.Text = None
 		self.Weight = None
 		self.ui = QUiLoader().load('resources/Main.ui')
@@ -215,32 +217,71 @@ class Weight:
 
 class Advanced:
 	def __init__(self):
-		self.Text = None
-		self.Weight = None
 		self.Main = None
+
+		# 配置默认参数
+		# 词云图长度
 		self.length = 400
+		# 词云图宽度
 		self.width = 400
+		# 词云图最小字号
 		self.min = 4
+		# 词云图最大字号
 		self.max = None
+		# 词云图字号步进间距
 		self.step = 1
+		# 水平排版概率
+		self.freq = 0.9
+		# 字体与字号关联程度
+		self.rele = 0.5
+		# 字体
+		self.font = "simsun"
+		# 背景颜色
+		self.background = "white"
+		# 文字颜色
+		self.colour = 'tab10'
+
+		# 从resources/Advanced.ui里加载Advanced页面的样式文件
 		self.ui = QUiLoader().load('resources/Advanced.ui')
 		with open('resources/Advanced.qss', 'r') as f:
 			self.ui.setStyleSheet(f.read())
 		f.close()
-		# 从resources/Weight.ui文件导入样式
-		# 绑定按钮
-		self.ui.ButtonSure.clicked.connect(self.Begin)
+
+		# 绑定绘制和返回两个按钮
+		self.ui.ButtonBegin.clicked.connect(self.Begin)
 		self.ui.ButtonBack.clicked.connect(self.Back)
 
+		# 进行字体下拉框配置
+		# 存放C:\Windows\Fonts下所有ttc字体文件
+		self.fontlist = []
+		path = r'C:\Windows\Fonts'
+		f_list = listdir(path)
+		for name in f_list:
+			if name.split(".")[-1] == 'ttc':
+				self.fontlist.append(name.split('.')[0])
+		self.ui.comboBoxFont.addItems(self.fontlist)
+
+		# 进行背景颜色下拉框配置
+		self.backgroundlist = ["White", "Black", "Blue", "Yellow", "Red", "Green"]
+		self.ui.comboBoxBackground.addItems(self.backgroundlist)
+
+		# 进行文字配色下拉框配置
+		self.colourlist = ['Pastel1', 'Pastel2', 'Paired', 'Accent', 'Dark2',
+		                   'Set1', 'Set2', 'Set3', 'tab10', 'tab20', 'tab20b',
+		                   'tab20c']
+		self.ui.comboBoxColour.addItems(self.colourlist)
+
 	def Back(self):
+		# FromWhere存放从哪里进入的Advanced页面
 		global FromWhere
+		# print(FromWhere)
 		if FromWhere == "Text":
-			self.Text = Main()
-			self.Text.ui.show()
+			self.Main = Text()
+			self.Main.ui.show()
 			self.ui.close()
 		elif FromWhere == "Weight":
-			self.Weight = Main()
-			self.Weight.ui.show()
+			self.Main = Weight()
+			self.Main.ui.show()
 			self.ui.close()
 		else:
 			self.Main = Main()
@@ -248,22 +289,21 @@ class Advanced:
 			self.ui.close()
 
 	def GetParameter(self):
-
+		# 获取所有用户设置的参数并且确保合法
 		if self.ui.spinBoxL.value() != 0:
 			self.length = self.ui.spinBoxL.value()
 
 		if self.ui.spinBoxW.value() != 0:
 			self.width = self.ui.spinBoxW.value()
 
-		font = []
-		path = r'C:\Windows\Fonts'
-		f_list = listdir(path)
-		for name in f_list:
-			if name.split(".")[-1] == 'ttc':
-				font.append(name)
-		self.ui.comboBoxFont.addItems(font)
+		if self.ui.comboBoxFont.currentText() in self.fontlist:
+			self.font = self.ui.comboBoxFont.currentText()
 
-		self.ui.comboBoxColour.addItems(["White", "Black", "Blue", "Yellow", "Red", "Green"])
+		if self.ui.comboBoxBackground.currentText() in self.backgroundlist:
+			self.background = self.ui.comboBoxBackground.currentText()
+
+		if self.ui.comboBoxColour.currentText() in self.colourlist:
+			self.colour = self.ui.comboBoxColour.currentText()
 
 		if self.ui.spinBoxMin.value() != 0:
 			self.min = self.ui.spinBoxMin.value()
@@ -273,18 +313,23 @@ class Advanced:
 
 		if self.ui.spinBoxStep.value() != 0:
 			self.step = self.ui.spinBoxStep.value()
-			
-		self.ui.comboBoxTab.addItems(['Pastel1', 'Pastel2', 'Paired', 'Accent', 'Dark2',
-		                              'Set1', 'Set2', 'Set3', 'tab10', 'tab20', 'tab20b',
-		                              'tab20c'])
+
+		if self.ui.spinBoxFreq.value() != 0:
+			self.freq = self.ui.spinBoxFreq.value()
+
+		if self.ui.spinBoxRele.value() != 0:
+			self.rele = self.ui.spinBoxRele.value()
 
 	def Begin(self):
 		# 防止意外先禁用掉开始按钮
 		self.ui.ButtonBegin.setEnabled(False)
 		self.GetParameter()
+		# 所有参数的列表
+		ParameterList = [self.length, self.width, self.font, self.background, self.max, self.min, self.step,
+		                 self.colour, self.freq, self.rele]
 		# 生成词云
 		global content
-		message = process.work_text_advanced(content)
+		message = process.work_text_advanced(content, ParameterList)
 		# 根据返回值弹出对应的提示
 		if message[0] == 1:
 			choice = QMessageBox.question(self.ui, '提示', '生成成功，词云图已保存在output文件夹下，是否查看？')

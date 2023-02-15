@@ -71,3 +71,19 @@ QPushButton#ButtonBack:pressed
 {
     background-color:rgb(14,135,228);
 }
+QPushButton#ButtonToAdvanced
+{
+    font-weight:bold;
+	color:rgb(065,076,135);
+	background-color:rgb(236,237,235);
+	border-radius:2px;
+	border:1px solid rgb(175,090,118);
+}
+QPushButton#ButtonToAdvanced:hover
+{
+    background-color:rgb(255,255,255);
+}
+QPushButton#ButtonToAdvanced:pressed
+{
+    background-color:rgb(14,135,228);
+}

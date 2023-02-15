@@ -131,7 +131,13 @@ def work_text(st, L, W):
 		space_list = ' '.join(wordlist)
 		# print(space_list)
 		# 生成云图
-		wordcloud = WordCloud(font_path='msyh.ttc', width=L, height=W, background_color="white", margin=1,
+		mylength = 400
+		mywidth = 400
+		if L != 0:
+			mylength = L
+		if W != 0:
+			mywidth = W
+		wordcloud = WordCloud(font_path='msyh.ttc', width=mylength, height=mywidth, background_color="white", margin=1,
 		                      max_words=300, min_font_size=20, max_font_size=None, repeat=True, mode='RGBA',
 		                      colormap='tab10').generate(space_list)
 		FileName = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
@@ -142,7 +148,7 @@ def work_text(st, L, W):
 		return [0, format_exc()]
 
 
-def work_text_advanced(st):
+def work_text_advanced(st, *args):
 	try:
 		# 切割词语
 		wordlist = cut(st)
@@ -150,9 +156,41 @@ def work_text_advanced(st):
 		space_list = ' '.join(wordlist)
 		# print(space_list)
 		# 生成云图
-		wordcloud = WordCloud(font_path='msyh.ttc', width=L, height=W, background_color="white", margin=1,
-		                      max_words=300, min_font_size=20, max_font_size=None, repeat=True, mode='RGBA',
-		                      colormap='tab10').generate(space_list)
+		mylength = 400
+		mywidth = 400
+		mymin = 4
+		mymax = None
+		mystep = 1
+		myfreq = 0.9
+		myrele = 0.5
+		myfont = "simsun"
+		mybackground = "white"
+		mycolour = 'tab10'
+		if args[0] != 0:
+			mylength = args[0]
+		if args[1] != 0:
+			mywidth = args[1]
+		if args[2] != None:
+			myfont = args[2]
+		if args[3] != None:
+			mybackground = args[3]
+		if args[4] != None:
+			mymax = args[4]
+		if args[5] != 4:
+			mymin = args[5]
+		if args[6] != 1:
+			mystep = args[6]
+		if args[7] != None:
+			mycolour = args[7]
+		if args[8] != 0.9:
+			myfreq = 0.9
+		if args[9] != 0.5:
+			myrele = 0.5
+		wordcloud = WordCloud(font_path=myfont + '.ttc', width=mylength, height=mywidth, background_color=mybackground,
+		                      margin=1,
+		                      max_words=300, min_font_size=mymin, max_font_size=mymax, repeat=True, mode='RGBA',
+		                      colormap=mycolour, prefer_horizontal=myfreq, relative_scaling=myrele,
+		                      font_step=mystep).generate(space_list)
 		FileName = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
 		wordcloud.to_file('output/' + FileName + '.png')
 		return [1, FileName]

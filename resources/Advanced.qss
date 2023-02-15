@@ -1,0 +1,40 @@
+*{
+	font-size:18px;
+	font-family:Microsoft YaHei;
+}
+#MainWindow
+{
+	background-image:url("resources/background.png");
+}
+QPushButton#ButtonBegin
+{
+    font-weight:bold;
+	color:rgb(065,076,135);
+	background-color:rgb(236,237,235);
+	border-radius:2px;
+	border:1px solid rgb(175,090,118);
+}
+QPushButton#ButtonBegin:hover
+{
+    background-color:rgb(255,255,255);
+}
+QPushButton#ButtonBegin:pressed
+{
+    background-color:rgb(14,135,228);
+}
+QPushButton#ButtonBack
+{
+    font-weight:bold;
+	color:rgb(065,076,135);
+	background-color:rgb(236,237,235);
+	border-radius:2px;
+	border:1px solid rgb(175,090,118);
+}
+QPushButton#ButtonBack:hover
+{
+    background-color:rgb(255,255,255);
+}
+QPushButton#ButtonBack:pressed
+{
+    background-color:rgb(14,135,228);
+}
