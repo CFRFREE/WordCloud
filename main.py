@@ -28,7 +28,7 @@ class Main:
 			self.ui.setStyleSheet(f.read())
 		# 从resources/Main.ui文件里加载首页样式
 		# 绑定首页的两个按钮
-		self.ui.ButtonText.setToolTip("对文字智能生成词云")
+		self.ui.ButtonText.setToolTip("给定文本智能生成词云")
 		self.ui.ButtonWeight.setToolTip("自定义每个词及其权重以生成词云")
 		self.ui.ButtonText.clicked.connect(self.TurnToText)
 		self.ui.ButtonWeight.clicked.connect(self.TurnToWeight)
@@ -64,8 +64,10 @@ class Text:
 		# 绑定文本模式的三个按钮：处理、选择文件和返回
 		self.ui.ButtonBegin.clicked.connect(self.Begin)
 		self.ui.ButtonChoose.clicked.connect(self.Findfile)
+		self.ui.ButtonChoose.setToolTip("从txt文件中获取文本信息")
 		self.ui.ButtonBack.clicked.connect(self.Back)
 		self.ui.ButtonToAdvanced.clicked.connect(self.ToAdvanced)
+		self.ui.ButtonToAdvanced.setToolTip("进行词云图高级设置")
 
 	# 返回首页
 	def Back(self):
@@ -156,6 +158,7 @@ class Weight:
 		self.ui.ButtonBack.clicked.connect(self.Back)
 		self.ui.ButtonNew.clicked.connect(self.Newline)
 		self.ui.ButtonToAdvanced.clicked.connect(self.ToAdvanced)
+		self.ui.ButtonToAdvanced.setToolTip("进行词云图高级设置")
 		# 让表格填充区域不留空
 		self.ui.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 		# 设置标题栏的分隔线
@@ -266,10 +269,12 @@ class Advanced:
 
 		# 绑定绘制和返回两个按钮
 		self.ui.ButtonBegin.clicked.connect(self.Begin)
+		self.ui.ButtonBegin.setToolTip("根据以上设置进行词云图绘制")
 		self.ui.ButtonBack.clicked.connect(self.Back)
+		self.ui.ButtonBack.setToolTip("取消设置并返回上一页")
 
 		# 进行字体下拉框配置
-		# 存放C:\Windows\Fonts下所有ttc字体文件
+		# fontlist存放C:\Windows\Fonts下所有ttc字体文件
 		self.fontlist = []
 		path = r'C:\Windows\Fonts'
 		f_list = listdir(path)
