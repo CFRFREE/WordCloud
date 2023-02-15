@@ -167,6 +167,7 @@ def work_text_advanced(st, args):
 		myfont = "simsun"
 		mybackground = "white"
 		mycolour = 'tab10'
+		myscale = 1.0
 		if args[0] != 0:
 			mylength = args[0]
 		if args[1] != 0:
@@ -184,14 +185,16 @@ def work_text_advanced(st, args):
 		if args[7] != None:
 			mycolour = args[7]
 		if args[8] != 0.9:
-			myfreq = 0.9
+			myfreq = args[8]
 		if args[9] != 0.5:
-			myrele = 0.5
+			myrele = args[9]
+		if args[10] != 0:
+			myscale = args[10]
 		wordcloud = WordCloud(font_path=myfont + '.ttc', width=mylength, height=mywidth, background_color=mybackground,
 		                      margin=1,
 		                      max_words=300, min_font_size=mymin, max_font_size=mymax, repeat=True, mode='RGBA',
 		                      colormap=mycolour, prefer_horizontal=myfreq, relative_scaling=myrele,
-		                      font_step=mystep).generate(space_list)
+		                      font_step=mystep, scale=myscale).generate(space_list)
 		FileName = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
 		wordcloud.to_file('output/' + FileName + '.png')
 		return [1, FileName]

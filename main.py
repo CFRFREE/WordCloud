@@ -242,6 +242,7 @@ class Advanced:
 		# 配置默认参数
 		# 词云图长度
 		self.length = 400
+
 		# 词云图宽度
 		self.width = 400
 		# 词云图最小字号
@@ -254,6 +255,8 @@ class Advanced:
 		self.freq = 0.9
 		# 字体与字号关联程度
 		self.rele = 0.5
+		# 缩放比例
+		self.scale = 1
 		# 字体
 		self.font = "simsun"
 		# 背景颜色
@@ -262,8 +265,8 @@ class Advanced:
 		self.colour = 'tab10'
 
 		# 从resources/Advanced.ui里加载Advanced页面的样式文件
-		self.ui = QUiLoader().load('resources/Advanced.ui')
-		with open('resources/Advanced.qss', 'r') as f:
+		self.ui = QUiLoader().load('resources/AdvancedNew.ui')
+		with open('resources/AdvancedNew.qss', 'r') as f:
 			self.ui.setStyleSheet(f.read())
 		f.close()
 
@@ -273,6 +276,14 @@ class Advanced:
 		self.ui.ButtonBack.clicked.connect(self.Back)
 		self.ui.ButtonBack.setToolTip("取消设置并返回上一页")
 
+		self.ui.spinBoxLength.setValue(400)
+		self.ui.spinBoxWidth.setValue(400)
+		self.ui.spinBoxMin.setValue(4)
+		self.ui.spinBoxMax.setValue(40)
+		self.ui.spinBoxStep.setValue(1)
+		self.ui.spinBoxFreq.setValue(0.9)
+		self.ui.spinBoxRele.setValue(0.5)
+		self.ui.spinBoxScale.setValue(1)
 		# 进行字体下拉框配置
 		# fontlist存放C:\Windows\Fonts下所有ttc字体文件
 		self.fontlist = []
@@ -282,16 +293,19 @@ class Advanced:
 			if name.split(".")[-1] == 'ttc':
 				self.fontlist.append(name.split('.')[0])
 		self.ui.comboBoxFont.addItems(self.fontlist)
+		self.ui.comboBoxFont.setCurrentIndex(0)
 
 		# 进行背景颜色下拉框配置
-		self.backgroundlist = ["White", "Black", "Blue", "Yellow", "Red", "Green"]
+		self.backgroundlist = ["White", "Black", "Blue", "Yellow", "Red", "Green", "Pink", "Grey"]
 		self.ui.comboBoxBackground.addItems(self.backgroundlist)
+		self.ui.comboBoxBackground.setCurrentIndex(0)
 
 		# 进行文字配色下拉框配置
 		self.colourlist = ['Pastel1', 'Pastel2', 'Paired', 'Accent', 'Dark2',
 		                   'Set1', 'Set2', 'Set3', 'tab10', 'tab20', 'tab20b',
 		                   'tab20c']
 		self.ui.comboBoxColour.addItems(self.colourlist)
+		self.ui.comboBoxColour.setCurrentIndex(0)
 
 	def Back(self):
 		# FromWhere存放从哪里进入的Advanced页面
@@ -312,11 +326,11 @@ class Advanced:
 
 	def GetParameter(self):
 		# 获取所有用户设置的参数并且确保合法
-		if self.ui.spinBoxL.value() != 0:
-			self.length = self.ui.spinBoxL.value()
+		if self.ui.spinBoxLength.value() != 0:
+			self.length = self.ui.spinBoxLength.value()
 
-		if self.ui.spinBoxW.value() != 0:
-			self.width = self.ui.spinBoxW.value()
+		if self.ui.spinBoxWidth.value() != 0:
+			self.width = self.ui.spinBoxWidth.value()
 
 		if self.ui.comboBoxFont.currentText() in self.fontlist:
 			self.font = self.ui.comboBoxFont.currentText()
@@ -339,8 +353,11 @@ class Advanced:
 		if self.ui.spinBoxFreq.value() != 0:
 			self.freq = self.ui.spinBoxFreq.value()
 
-		if self.ui.SpinBoxRele.value() != 0:
-			self.rele = self.ui.SpinBoxRele.value()
+		if self.ui.spinBoxRele.value() != 0:
+			self.rele = self.ui.spinBoxRele.value()
+
+		if self.ui.spinBoxScale.value() != 0:
+			self.scale = self.ui.spinBoxScale.value()
 
 	def Begin(self):
 		# 防止意外先禁用掉开始按钮
@@ -349,7 +366,7 @@ class Advanced:
 		self.GetParameter()
 		# 所有参数的列表
 		ParameterList = [self.length, self.width, self.font, self.background, self.max, self.min, self.step,
-		                 self.colour, self.freq, self.rele]
+		                 self.colour, self.freq, self.rele, self.scale]
 		# 生成词云
 		global content
 		message = process.work_text_advanced(content, ParameterList)
