@@ -1,5 +1,5 @@
 # @formatter:on
-
+import os
 
 from wordcloud import WordCloud
 from traceback import format_exc
@@ -142,6 +142,8 @@ def work_text(st, L, W):
 		                      max_words=300, min_font_size=20, max_font_size=None, repeat=True, mode='RGBA',
 		                      colormap='tab10').generate(space_list)
 		FileName = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
+		if not os.path.exists('output/'):
+			os.makedirs('output/')
 		wordcloud.to_file('output/' + FileName + '.png')
 		return [1, FileName]
 	except:
@@ -196,6 +198,8 @@ def work_text_advanced(st, args):
 		                      colormap=mycolour, prefer_horizontal=myfreq, relative_scaling=myrele,
 		                      font_step=mystep, scale=myscale).generate(space_list)
 		FileName = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
+		if not os.path.exists('output/'):
+			os.makedirs('output/')
 		wordcloud.to_file('output/' + FileName + '.png')
 		return [1, FileName]
 	except:

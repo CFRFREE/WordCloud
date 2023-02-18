@@ -8,6 +8,7 @@ from PySide2.QtWidgets import QApplication
 from PySide2.QtWidgets import QFileDialog
 from PySide2.QtWidgets import QMessageBox
 from PySide2.QtWidgets import QHeaderView
+from PySide2 import QtCore
 from PIL import Image
 import sys
 import process
@@ -385,6 +386,8 @@ class Advanced:
 
 
 # 以下是主函数
+QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
+# 适应Windows缩放
 app = QApplication(sys.argv)
 # 设置程序左上角显示的图标
 app.setWindowIcon(QIcon('resources/logo.jpg'))
